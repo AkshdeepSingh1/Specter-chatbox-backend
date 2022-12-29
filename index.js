@@ -12,7 +12,7 @@ app.use(express.json());
 app.use("/api/auth",require('./routes/auth'));
 app.use("/api/messages",require('./routes/messageRoute'));
 
-const server = app.listen(process.env.PORT,()=>{
+const server = app.listen(process.env.PORT || 5000,()=>{
     console.log(`server Started no Port-${process.env.PORT}`);
 });
 

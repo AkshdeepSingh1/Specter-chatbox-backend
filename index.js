@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const app = express();
 const socket = require('socket.io');
 const  cors = require('cors');
@@ -8,6 +9,9 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
+router.get('/',async (req, resp) => {
+    resp.status(200).send({msg:"server working",status:true});
+})
 
 app.use("/api/auth",require('./routes/auth'));
 app.use("/api/messages",require('./routes/messageRoute'));

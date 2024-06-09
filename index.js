@@ -6,7 +6,13 @@ const  cors = require('cors');
 require('./db/config')                //Connecting with the database
 require("dotenv").config();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'specter-chatbox-frontend-production.up.railway.app', // Replace with your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 router.get('/',async (req, resp) => {

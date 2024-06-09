@@ -15,6 +15,7 @@ router.get('/',async (req, resp) => {
 
 app.use("/api/auth",require('./routes/auth'));
 app.use("/api/messages",require('./routes/messageRoute'));
+app.use("/api/forgetpassword",require('./routes/forgetPassword'));
 
 const server = app.listen(process.env.PORT || 5000,()=>{
     console.log(`server Started on Port-${process.env.PORT}`);
@@ -22,8 +23,8 @@ const server = app.listen(process.env.PORT || 5000,()=>{
 
 const io = socket(server,{
     cors:{
-        // origin:"http://localhost:3000",
-        origin:"https://specter-chatbox.onrender.com",
+        origin:process.env.FRONTEND_URL,
+        //origin:"https://specter-chatbox.onrender.com",
         credentials: true,
     },
 })

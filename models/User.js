@@ -26,7 +26,27 @@ const userSchema = new mongoose.Schema({
     avatarImage : {
         type:String,
         default:""
-    }
+    },
+    resetPasswordToken: {
+        type: String,
+        default: ""
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: null
+    },
+    isEmailVerified: {
+        type: Boolean,
+        default: false
+    },
+    mfaCode: {
+        type: String,
+        default: null
+    },
+    mfaCodeExpires:{
+        type: Date,
+        default: null
+    }, // 10 minutes
 });
 const User =  mongoose.model('user',userSchema);
 module.exports = User

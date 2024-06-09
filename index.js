@@ -3,6 +3,7 @@ const router = express.Router();
 const app = express();
 const socket = require('socket.io');
 const  cors = require('cors');
+const connectDB = require('./db/config');
 require('./db/config')                //Connecting with the database
 require("dotenv").config();
 
@@ -22,6 +23,8 @@ router.get('/',async (req, resp) => {
 app.use("/api/auth",require('./routes/auth'));
 app.use("/api/messages",require('./routes/messageRoute'));
 app.use("/api/forgetpassword",require('./routes/forgetPassword'));
+
+connectDB();
 
 const server = app.listen(process.env.PORT || 5000,()=>{
     console.log(`server Started on Port-${process.env.PORT}`);

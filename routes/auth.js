@@ -108,30 +108,25 @@ router.post('/verify-email', async (req, res) => {
 
 
 
-//////////////////////Logging in a new user
+////////////////////// Logging in a new user
 router.post("/login", async (req, resp) => {
-  //Finding if the user exists in the database or not
-
   try {
     let existingUser = await user.findOne({ email: req.body.email });
+
     if (existingUser && existingUser.isEmailVerified === false) {
-      await User.deleteOne({ email: email });
-      return res.status(400).json({ error: "Please check your email or password", status: false });
+      await user.deleteOne({ email: req.body.email });
+      return resp.status(400).json({ error: "Please check your email or password", status: false });
     }
+
     if (!existingUser) {
-      return resp
-        .status(400)
-        .json({ error: "Please check your email or password", status: false });
+      return resp.status(400).json({ error: "Please check your email or password", status: false });
     }
-    const isPasswordValid = bcrypt.compareSync(
-      req.body.password,
-      existingUser.password
-    );
+
+    const isPasswordValid = bcrypt.compareSync(req.body.password, existingUser.password);
     if (!isPasswordValid) {
-      return resp
-        .status(400)
-        .json({ error: "Please check your email or password", status: false });
+      return resp.status(400).json({ error: "Please check your email or password", status: false });
     }
+
     existingUser = existingUser.toObject();
     delete existingUser.password;
     delete existingUser.mfaCode;
@@ -141,11 +136,11 @@ router.post("/login", async (req, resp) => {
     console.log(existingUser);
     resp.json({ existingUser, status: true });
   } catch (err) {
-    console.log(err)
+    console.error(err);
     resp.status(500).send({ err: "Internal Server Error", status: false });
   }
-  //.then(user => resp.json(user)).catch(err=> resp.json({error: "please enter a unique value for email"}));
 });
+
 
 //////////Setting avatar of the specific User.
 

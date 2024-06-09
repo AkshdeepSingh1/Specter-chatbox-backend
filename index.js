@@ -7,7 +7,7 @@ require('./db/config')                //Connecting with the database
 require("dotenv").config();
 
 const corsOptions = {
-    origin: 'https://specter-chatbox-frontend-production.up.railway.app',
+    origin: ['https://specter-chatbox-frontend-production.up.railway.app', 'http://localhost:3001'],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
